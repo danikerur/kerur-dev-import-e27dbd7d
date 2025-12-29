@@ -8,6 +8,12 @@ import NewDashboardPage from "./pages/NewDashboardPage";
 import { CustomersPage } from "./pages/CustomersPage";
 import { ProductsPage } from "./pages/ProductsPage";
 import { DeliveriesPage } from "./pages/DeliveriesPage";
+import { AddCustomerPage } from "./pages/AddCustomerPage";
+import { EditCustomerPage } from "./pages/EditCustomerPage";
+import { AddProductPage } from "./pages/AddProductPage";
+import { EditProductPage } from "./pages/EditProductPage";
+import NewDeliveryPage from "./pages/NewDeliveryPage";
+import { EditDeliveryPage } from "./pages/EditDeliveryPage";
 import { Sidebar } from "./components/Sidebar";
 import { useAuth } from "./hooks/useAuth";
 
@@ -35,8 +41,14 @@ function AppContent() {
           <Route path="/" element={<NewDashboardPage />} />
           <Route path="/dashboard" element={<NewDashboardPage />} />
           <Route path="/customers" element={<CustomersPage />} />
+          <Route path="/customers/new" element={<AddCustomerPage />} />
+          <Route path="/customers/:id/edit" element={<EditCustomerPage />} />
           <Route path="/products" element={<ProductsPage />} />
+          <Route path="/products/new" element={<AddProductPage />} />
+          <Route path="/products/:id/edit" element={<EditProductPage />} />
           <Route path="/deliveries" element={<DeliveriesPage />} />
+          <Route path="/deliveries/new" element={<NewDeliveryPage />} />
+          <Route path="/deliveries/:id/edit" element={<EditDeliveryPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>

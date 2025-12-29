@@ -6,10 +6,13 @@
 
 :root {
   font-family: 'Heebo', sans-serif;
+  direction: rtl;
 }
 
 body {
   font-family: 'Heebo', sans-serif;
+  direction: rtl;
+  text-align: right;
 }
 
 /* Animation for modal */

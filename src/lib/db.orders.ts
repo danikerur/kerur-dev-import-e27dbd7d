@@ -32,9 +32,12 @@ export async function createCustomer({
     .from('customers')
     .insert({
       name,
-      phone: phone ?? null,
+      phone: phone ?? '',
+      address: '',
+      latitude: 0,
+      longitude: 0,
     })
-    .select<typeof CUSTOMER_FIELDS, Customer>(CUSTOMER_FIELDS)
+    .select(CUSTOMER_FIELDS)
     .single();
 
   if (error) {

@@ -104,7 +104,7 @@ export function DeliveriesPage() {
     try {
       const { error } = await supabase
         .from('deliveries')
-        .update({ status })
+        .update({ status: status as 'planned' | 'completed' | 'canceled' })
         .eq('id', deliveryId);
       if (error) throw error;
       fetchDeliveries();

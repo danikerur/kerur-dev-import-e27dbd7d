@@ -101,16 +101,18 @@ export function EditProductPage() {
             model: dim.model || ''
           }));
         } else {
+          const specs = data.specifications as unknown as { width?: number; height?: number; length?: number; depth?: number } | null;
           productDimensions = [{
             id: '1',
-            width: data.specifications.width || 0,
-            height: data.specifications.height || 0,
-            length: (data.specifications.length ?? data.specifications.depth) || 0,
+            width: specs?.width || 0,
+            height: specs?.height || 0,
+            length: (specs?.length ?? specs?.depth) || 0,
             product_code: data.product_code || '',
             model: ''
           }];
         }
 
+        const specs = data.specifications as unknown as { width?: number; height?: number; length?: number; depth?: number } | null;
         setProduct({
           ...data,
           tag: data.tag || '',
@@ -118,14 +120,14 @@ export function EditProductPage() {
           product_code: data.product_code || '',
           supplier_id: data.supplier_id || null,
           specifications: {
-            length: (data.specifications.length ?? data.specifications.depth) || 0,
-            width: data.specifications.width || 0,
-            height: data.specifications.height || 0
+            length: (specs?.length ?? specs?.depth) || 0,
+            width: specs?.width || 0,
+            height: specs?.height || 0
           }
         });
 
         setDimensions(productDimensions);
-        setOptionsType(data.options_type || 'dimensions');
+        setOptionsType((data.options_type as 'dimensions' | 'variations') || 'dimensions');
 
         if (data.category_id) {
           const category = await findCategory(data.category_id);

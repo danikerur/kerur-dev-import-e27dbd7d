@@ -65,7 +65,11 @@ export function AddProductPage() {
         .order('name');
 
       if (error) throw error;
-      setSuppliers(data || []);
+      const mappedSuppliers: Supplier[] = (data || []).map(s => ({
+        id: Number(s.id) || 0,
+        name: s.name
+      }));
+      setSuppliers(mappedSuppliers);
     } catch (error) {
       console.error('Error fetching suppliers:', error);
       alert('שגיאה בטעינת רשימת הספקים');
@@ -238,7 +242,7 @@ export function AddProductPage() {
         .insert([{
           name,
           product_code,
-          supplier_id,
+          supplier_id: String(supplier_id),
           category_id: subcategory_id || category_id,
           description,
           tags,

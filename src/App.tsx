@@ -14,6 +14,7 @@ import { AddProductPage } from "./pages/AddProductPage";
 import { EditProductPage } from "./pages/EditProductPage";
 import NewDeliveryPage from "./pages/NewDeliveryPage";
 import { EditDeliveryPage } from "./pages/EditDeliveryPage";
+import { CustomerSearchPage } from "./pages/CustomerSearchPage";
 import { Sidebar } from "./components/Sidebar";
 import { useAuth } from "./hooks/useAuth";
 
@@ -40,6 +41,7 @@ function AppContent() {
         <Routes>
           <Route path="/" element={<NewDashboardPage />} />
           <Route path="/dashboard" element={<NewDashboardPage />} />
+          <Route path="/dashboard-search" element={<CustomerSearchPage />} />
           <Route path="/customers" element={<CustomersPage />} />
           <Route path="/customers/new" element={<AddCustomerPage />} />
           <Route path="/customers/:id/edit" element={<EditCustomerPage />} />

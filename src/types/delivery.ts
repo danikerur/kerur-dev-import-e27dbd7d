@@ -8,6 +8,9 @@ export interface Customer {
   id: string;
   name: string;
   phone: string;
+  address: string;
+  latitude: number;
+  longitude: number;
 }
 
 export interface Dimension {
@@ -15,6 +18,8 @@ export interface Dimension {
   length: number;
   width: number;
   height: number;
+  product_code?: string;
+  model?: string;
 }
 
 export interface Product {
@@ -26,8 +31,26 @@ export interface Product {
     height: number;
   };
   dimensions?: Dimension[];
-  image_url?: string;
+  image_url?: string | null;
   options_type?: string;
+}
+
+export interface SelectedProduct {
+  id: string;
+  product: Product;
+  quantity: number;
+  selectedDimensionIndex?: number;
+  selectedVariation?: any;
+}
+
+export interface SelectedCustomer {
+  id: string;
+  customer: Customer;
+  products: SelectedProduct[];
+  delivery_price: number;
+  notes: string;
+  order: number;
+  distance?: number;
 }
 
 export interface DeliveryProduct {

@@ -1,25 +1,42 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error(
-    'Supabase configuration is missing. Check VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.'
+const isConfigured = Boolean(supabaseUrl && supabaseAnonKey);
+
+if (!isConfigured) {
+  console.warn(
+    'Supabase configuration is missing. Check VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY. The app may need a full page refresh.'
   );
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    autoRefreshToken: true,
-    persistSession: true,
-    detectSessionInUrl: false,
-    storage: localStorage,
-  },
-  db: {
-    schema: 'public',
-  },
-});
+// Create a dummy client if not configured to prevent crashes
+const createSupabaseClient = (): SupabaseClient => {
+  if (!isConfigured) {
+    // Return a client with placeholder values - will fail on actual API calls
+    return createClient('https://placeholder.supabase.co', 'placeholder', {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false,
+      },
+    });
+  }
+  
+  return createClient(supabaseUrl, supabaseAnonKey, {
+    auth: {
+      autoRefreshToken: true,
+      persistSession: true,
+      detectSessionInUrl: false,
+      storage: localStorage,
+    },
+    db: {
+      schema: 'public',
+    },
+  });
+};
+
+export const supabase = createSupabaseClient();
 
 supabase.auth.onAuthStateChange((event) => {
   if (event === 'TOKEN_REFRESHED') {

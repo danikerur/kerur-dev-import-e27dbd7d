@@ -15,6 +15,7 @@ import { EditProductPage } from "./pages/EditProductPage";
 import NewDeliveryPage from "./pages/NewDeliveryPage";
 import { EditDeliveryPage } from "./pages/EditDeliveryPage";
 import { CustomerSearchPage } from "./pages/CustomerSearchPage";
+import QuickQuotePage from "./pages/QuickQuotePage";
 import { Sidebar } from "./components/Sidebar";
 import { useAuth } from "./hooks/useAuth";
 
@@ -51,6 +52,7 @@ function AppContent() {
           <Route path="/deliveries" element={<DeliveriesPage />} />
           <Route path="/deliveries/new" element={<NewDeliveryPage />} />
           <Route path="/deliveries/:id/edit" element={<EditDeliveryPage />} />
+          <Route path="/quick-quote" element={<QuickQuotePage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>

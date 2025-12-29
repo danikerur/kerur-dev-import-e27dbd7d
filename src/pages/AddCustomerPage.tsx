@@ -169,7 +169,14 @@ export function AddCustomerPage() {
       return;
     }
 
-    setProducts(data || []);
+    const mappedProducts: Product[] = (data || []).map(p => ({
+      id: p.id,
+      name: p.name,
+      image_url: p.image_url || '',
+      specifications: (p.specifications as unknown as { length: number; width: number; height: number }) || null,
+      dimensions: (p.dimensions as unknown as Dimension[]) || [],
+    }));
+    setProducts(mappedProducts);
   }
 
   const getProductDimensions = (product: Product): Dimension[] => {

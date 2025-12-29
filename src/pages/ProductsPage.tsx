@@ -68,7 +68,21 @@ export function ProductsPage() {
       return;
     }
 
-    setProducts(data || []);
+    const mappedProducts: Product[] = (data || []).map(p => ({
+      id: p.id,
+      name: p.name,
+      description: p.description || '',
+      image_url: p.image_url || '',
+      category_id: p.category_id,
+      catalog_visible: p.catalog_visible ?? true,
+      catalog_order: p.catalog_order ?? 0,
+      specifications: (p.specifications as unknown as { length: number; width: number; height: number }) || { length: 0, width: 0, height: 0 },
+      dimensions: (p.dimensions as unknown as Dimension[]) || [],
+      product_code: p.product_code || undefined,
+      supplier: p.supplier || undefined,
+      options_type: p.options_type || undefined,
+    }));
+    setProducts(mappedProducts);
   }
 
   async function fetchCategories() {

@@ -3,7 +3,7 @@ import { Search, X } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import type { Product } from '../../types/delivery';
 
-interface ProductVariation { id: number; name: string; }
+interface ProductVariation { id: string; name: string; }
 
 interface SelectProductModalProps {
   products: Product[];

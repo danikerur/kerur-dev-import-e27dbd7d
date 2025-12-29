@@ -64,8 +64,22 @@ export function EditDeliveryPage() {
       if (productsData.error) throw productsData.error;
 
       setDrivers(driversData.data || []);
-      setCustomers(customersData.data || []);
-      setProducts(productsData.data || []);
+      setCustomers((customersData.data || []).map(c => ({
+        id: c.id,
+        name: c.name,
+        phone: c.phone,
+        address: c.address,
+        latitude: c.latitude,
+        longitude: c.longitude,
+      })));
+      setProducts((productsData.data || []).map(p => ({
+        id: p.id,
+        name: p.name,
+        specifications: (p.specifications as unknown as { length: number; width: number; height: number }) || { length: 0, width: 0, height: 0 },
+        dimensions: (p.dimensions as unknown as Dimension[]) || [],
+        image_url: p.image_url || null,
+        options_type: p.options_type || undefined,
+      })));
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -81,7 +95,15 @@ export function EditDeliveryPage() {
 
       if (deliveryError) throw deliveryError;
 
-      setDelivery(deliveryData);
+      // Map delivery data to include customers array (will be populated below)
+      setDelivery({
+        id: deliveryData.id,
+        driver_id: deliveryData.driver_id,
+        delivery_date: deliveryData.delivery_date,
+        status: deliveryData.status || 'planned',
+        created_at: deliveryData.created_at || '',
+        customers: [],
+      });
 
       const { data: customersData, error: customersError } = await supabase
         .from('delivery_customers')

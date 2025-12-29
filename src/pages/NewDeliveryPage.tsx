@@ -160,7 +160,15 @@ export default function NewDeliveryPage() {
       return;
     }
 
-    setProducts(data || []);
+    const mappedProducts: Product[] = (data || []).map(p => ({
+      id: p.id,
+      name: p.name,
+      image_url: p.image_url || null,
+      specifications: (p.specifications as unknown as { length: number; width: number; height: number }) || { length: 0, width: 0, height: 0 },
+      dimensions: (p.dimensions as unknown as Dimension[]) || [],
+      options_type: p.options_type || undefined,
+    }));
+    setProducts(mappedProducts);
   }
 
   const initMap = () => {
@@ -529,7 +537,7 @@ export default function NewDeliveryPage() {
           .eq('id', sc.customer.id)
           .single();
         if (customerFetchError) throw customerFetchError;
-        const existingProducts = customerData?.products || [];
+        const existingProducts = (customerData?.products as unknown as any[]) || [];
         const productKey = (p: { id: string; specifications?: { length: number; width: number; height: number } }) =>
           `${p.id}_${p.specifications?.length || ''}_${p.specifications?.width || ''}_${p.specifications?.height || ''}`;
         const mergedProductsMap = new Map<string, any>();

@@ -58,7 +58,15 @@ export function CustomersPage() {
       return;
     }
 
-    setCustomers(data || []);
+    const mappedCustomers: Customer[] = (data || []).map(c => ({
+      id: c.id,
+      name: c.name,
+      phone: c.phone,
+      address: c.address,
+      products: (c.products as unknown as CustomerProduct[]) || [],
+      created_at: c.created_at || ''
+    }));
+    setCustomers(mappedCustomers);
   }
 
   async function fetchProducts() {
@@ -71,7 +79,12 @@ export function CustomersPage() {
       return;
     }
 
-    setProducts(data || []);
+    const mappedProducts: Product[] = (data || []).map(p => ({
+      id: p.id,
+      name: p.name,
+      specifications: (p.specifications as { length: number; width: number; height: number }) || { length: 0, width: 0, height: 0 }
+    }));
+    setProducts(mappedProducts);
   }
 
   const handleDeleteCustomer = async (customerId: string) => {

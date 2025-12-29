@@ -5,6 +5,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { LoginPage } from "./pages/LoginPage";
 import NewDashboardPage from "./pages/NewDashboardPage";
+import { CustomersPage } from "./pages/CustomersPage";
+import { ProductsPage } from "./pages/ProductsPage";
+import { DeliveriesPage } from "./pages/DeliveriesPage";
 import { Sidebar } from "./components/Sidebar";
 import { useAuth } from "./hooks/useAuth";
 
@@ -31,6 +34,9 @@ function AppContent() {
         <Routes>
           <Route path="/" element={<NewDashboardPage />} />
           <Route path="/dashboard" element={<NewDashboardPage />} />
+          <Route path="/customers" element={<CustomersPage />} />
+          <Route path="/products" element={<ProductsPage />} />
+          <Route path="/deliveries" element={<DeliveriesPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>

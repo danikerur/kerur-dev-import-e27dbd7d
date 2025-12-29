@@ -1,3 +1,6 @@
+import { headerBase64 } from '../assets/headerBase64';
+import { footerBase64 } from '../assets/footerBase64';
+import { middleGraphicBase64 } from '../assets/middleGraphicBase64';
 import { useState } from 'react';
 
 interface CustomerDetails {
@@ -196,6 +199,20 @@ const QuickQuotePage = () => {
           boxSizing: 'border-box',
         }}
       >
+        {/* Header graphic */}
+        <img
+          src={middleGraphicBase64}
+          alt="Header Graphic"
+          style={{
+            width: '100%',
+            height: '80px',
+            objectFit: 'cover',
+            marginBottom: '16px',
+            display: 'block',
+          }}
+        />
+
+        {/* Quote content */}
         <div className="p-8">
           <h1 className="text-3xl font-bold mb-8 text-center">הצעת מחיר</h1>
           
@@ -278,6 +295,23 @@ const QuickQuotePage = () => {
             </table>
           </div>
         </div>
+
+        {/* Footer graphic */}
+        <img
+          src={footerBase64}
+          alt="Footer"
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            right: 0,
+            width: '100%',
+            height: '80px',
+            objectFit: 'cover',
+            zIndex: 1,
+            pointerEvents: 'none',
+            userSelect: 'none',
+          }}
+        />
       </div>
     </div>
   );

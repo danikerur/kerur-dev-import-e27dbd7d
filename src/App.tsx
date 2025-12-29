@@ -36,8 +36,8 @@ function AppContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col lg:flex-row-reverse" dir="rtl">
-      <main className="flex-1 p-4 lg:p-8 lg:ml-64 mt-16 lg:mt-0">
+    <div className="min-h-screen bg-gray-100 flex flex-col lg:flex-row" dir="rtl">
+      <main className="flex-1 p-4 lg:p-8 lg:mr-64 mt-16 lg:mt-0">
         <Routes>
           <Route path="/" element={<NewDashboardPage />} />
           <Route path="/dashboard" element={<NewDashboardPage />} />
